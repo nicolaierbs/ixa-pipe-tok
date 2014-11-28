@@ -1,4 +1,4 @@
-package es.ehu.si.ixa.pipe.tok;
+package es.ehu.si.ixa.ixa.pipe.tok;
 
 /* --------------------------Usercode Section------------------------ */
 
@@ -517,16 +517,23 @@ ABBREV_DAYS_NL = ma|woe|vrij|za|zo|wo|vr
 
 ABBREV_DAYS = {ABBREV_DAYS_DE}|{ABBREV_DAYS_EN}|{ABBREV_DAYS_ES}|{ABBREV_DAYS_FR}|{ABBREV_DAYS_GL}|{ABBREV_DAYS_IT}|{ABBREV_DAYS_NL}
 
-ABBREV_STATE = Ala|Ariz|[A]rk|Calif|Colo|Conn|Dak|Del|Fla|Ga|[I]ll|Ind|Kans?|Ky|La|[M]ass|Md|Mich|Minn|[M]iss|Mo|Mont|Neb|Nev|Okla|[O]re|Pa|Penn|Tenn|Tex|Va|Vt|[W]ash|Wisc?|Wyo
+ABBREV_AFTER_PERSON = Jr|Blvd|Rd|Esq
+//ABBREV_AFTER_PERSON = Jr|Sr|Bros|(Ed|Ph)\.D|Blvd|Rd|Esq
 
 /* Bhd is Malaysian companies! Rt. is Hungarian? */
 /* Special case: Change the class of Pty when followed by Ltd to not sentence break (in main code below)... */
-ABBREV_COMP = Inc|Cos?|Corp|Pp?t[ye]s?|Ltd|Plc|Rt|Bancorp|Dept|Bhd|Assn|Univ|Intl|Sys|Dep|Fac|Coop|Soc
+//ABBREV_COMP = Inc|Cos?|Corp|Pp?t[ye]s?|Ltd|Plc|Rt|Bancorp|Dept|Bhd|Assn|Univ|Intl|Sys|Dep|Fac
+ABBREV_COMP = Inc|Cos?|Pp?t[ye]s?|Ltd|Plc|Rt|Bancorp|Bhd
+
+ABBREV_STATE = Ala|Ariz|[A]rk|Calif|Colo|Conn|Dak|Del|Fla|Ga|[I]ll|Ind|Kans?|Ky|La|[M]ass|Md|Mich|Minn|[M]iss|Mo|Mont|Neb|Nev|Okla|[O]re|Pa|Penn|Tenn|Tex|Va|Vt|[W]ash|Wisc?|Wyo
 
 /* Don't included fl. oz. since Oz turns up too much in caseless tokenizer. ft now allows upper after it for "Fort" use. */
-ABBREV_NUM = Ph|tel|est|ext|sq
-ABBREV_AFTER_PERSON = Jr|Sr|Bros|(Ed|Ph)\.D|Blvd|Rd|Esq
-ABBREV_DATES = ({ABBREV_MONTH}|{ABBREV_DAYS}|{ABBREV_STATE}|{ABBREV_COMP}|{ABBREV_NUM}|{ABBREV_AFTER_PERSON}|etc|al|seq)\.
+//ABBREV_NUM = Ph|tel|est|ext|sq
+ABBREV_NUM = sq
+
+//TODO Acronyms that end sentences
+//ABBREV_DATES = ({ABBREV_MONTH}|{ABBREV_DAYS}|etc|al|seq)\.
+ABBREV_DATES = ({ABBREV_MONTH}|{ABBREV_DAYS}|{ABBREV_AFTER_PERSON}|{ABBREV_COMP}|{ABBREV_STATE}|{ABBREV_NUM}|etc|al|seq)\.
 
 ///////////////////////
 //// PERSON TITLES ////
@@ -549,7 +556,8 @@ ABBREV_PREFIX = {ABBREV_PREFIX_DE}|{ABBREV_PREFIX_EN}|{ABBREV_PREFIX_FR}|{ABBREV
 /* SPECIAL_ABBREV_PREFIX are list of titles. 
  * These are often followed by upper-case names, but do not indicate sentence breaks
  */
-SPECIAL_ABBREV_COMP = Invt|Elec|Natl|M[ft]g
+//SPECIAL_ABBREV_COMP = Invt|Elec|Natl|M[ft]g
+SPECIAL_ABBREV_COMP = Invt|Elec|Natl|M[ft]g|{ABBREV_AFTER_PERSON}|{ABBREV_COMP}|{ABBREV_NUM}|{ABBREV_STATE}
 ABBREV_UPPER = [A-Za-z]|{ABBREV_PREFIX}|vs|Alex|Wm|Jos|Cie|a\.k\.a|cf|TREAS|{ACRONYM}|{SPECIAL_ABBREV_COMP}
 SPECIAL_ABBREV_PREFIX = {ABBREV_UPPER}\.
 
