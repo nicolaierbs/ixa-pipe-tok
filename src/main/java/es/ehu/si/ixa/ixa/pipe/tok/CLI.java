@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.Properties;
+import java.util.regex.Matcher;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
@@ -149,6 +150,7 @@ public class CLI {
     String kafVersion = parsedArguments.getString("kafversion");
     Boolean inputKafRaw = parsedArguments.getBoolean("inputkaf");
     Boolean noTok = parsedArguments.getBoolean("notok");
+    Boolean multiwords = parsedArguments.getBoolean("multiwords");
     Properties properties = setAnnotateProperties(lang, tokenizerType, normalize, paras);
     BufferedReader breader = null;
     BufferedWriter bwriter = null;
@@ -163,14 +165,33 @@ public class CLI {
       // read KAF from standard input
       kaf = KAFDocument.createFromStream(kafReader);
       String text = kaf.getRawText();
-      StringReader stringReader = new StringReader(text);
+      StringReader stringReader;
+      if (multiwords) {
+        MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
+        String mwText = multiWordMatcher.getMultiWords(text);
+        stringReader = new StringReader(mwText);
+      } else {
+        stringReader = new StringReader(text);
+      }
       breader = new BufferedReader(stringReader);
     }
     // read plain text from standard input and create a new
     // KAFDocument
     else {
       kaf = new KAFDocument(lang, kafVersion);
-      breader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+      if (multiwords) {
+        BufferedReader mwReader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
+        String line;
+        while ((line = mwReader.readLine()) != null) {
+         sb.append(multiWordMatcher.getMultiWords(line)).append("\n");
+        }
+        StringReader stringReader = new StringReader(sb.toString());
+        breader = new BufferedReader(stringReader);
+      } else {
+        breader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+      }
     }
     // tokenize in kaf
     if (parsedArguments.getBoolean("nokaf")) {
@@ -199,7 +220,6 @@ public class CLI {
           bwriter.write(annotator.tokenizeToCoNLLOffsets());
         }
       }// conll options end here
-
       else {
         bwriter.write(annotator.tokenizeToText());
       }
@@ -240,7 +260,8 @@ public class CLI {
         .required(false)
         .help(
             "Choose to print paragraph characters in CoNLL or oneline formats.\n");
-    annotateParser.addArgument("--nokaf").action(Arguments.storeFalse())
+    annotateParser.addArgument("--nokaf")
+        .action(Arguments.storeFalse())
         .help("Do not print tokens in KAF format, but plain text.\n");
     annotateParser
         .addArgument("-o", "--outputFormat")
@@ -260,6 +281,9 @@ public class CLI {
         .action(Arguments.storeTrue())
         .help(
             "Use this option if input is a KAF/NAF document with <raw> layer.\n");
+    annotateParser.addArgument("-mw","--multiwords")
+        .action(Arguments.storeTrue())
+        .help("Use this option to activate multiwords detection.\n");
     annotateParser.addArgument("--notok")
         .action(Arguments.storeTrue())
         .help("Build a KAF document from an already tokenized sentence per line file.\n");

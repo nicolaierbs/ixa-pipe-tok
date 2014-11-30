@@ -47,13 +47,22 @@ import es.ehu.si.ixa.ixa.pipe.tok.eval.TokenizerEvaluator;
  * the -outputFormat parameter of the CLI.
  * 
  * @author ragerri
- * @version 2013-03-31
+ * @version 2014-11-30
  * 
  */
 public class Annotate {
 
+  /**
+   * The tokenizer.
+   */
   private Tokenizer<Token> tokenizer;
+  /**
+   * The sentence segmenter.
+   */
   private Segmenter segmenter;
+  /**
+   * The token factory.
+   */
   private TokenFactory tokenFactory;
 
   // counters for paragraphs and sentences
@@ -76,7 +85,6 @@ public class Annotate {
       tokenizer = new IxaPipeTokenizer<Token>(breader, tokenFactory, properties);
     }
     segmenter = new Segmenter();
-
   }
 
   /**
