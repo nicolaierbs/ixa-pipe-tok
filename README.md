@@ -15,6 +15,20 @@ and install this repository instead of using the releases provided in
 [http://ixa2.si.ehu.es/ixa-pipes], please scroll down to the end of the document for
 the [installation instructions](#installation).
 
+**NOTICE!!**: ixa-pipe-nerc is now in [Maven Central](http://search.maven.org/)
+for easy access to its API.
+
+## TABLE OF CONTENTS
+
+1. [Overview of ixa-pipe-tok](#overview)
+  + [Available features](#features)
+  + [Distributed resources](#resources)
+2. [Usage of ixa-pipe-tok](#cli-usage)
+  + [Tokenization](#tokenizing)
+  + [Evaluation](#evaluation)
+3. [API via Maven Dependency](#api)
+4. [Git installation](#installation)
+
 ## OVERVIEW
 
 This module provides Multilingual Sentence Segmentation and Tokenization for a number of languages, 
@@ -44,9 +58,11 @@ Specifically, apart from English Penn Treebank-compliant tokenization,
     rules for splitting apostrophes. 
   + **multilingual support for non-breaking prefixes**, adding language-specific 
     non-breaking exceptions for Dutch, German, French, Galician, Italian and Spanish.
-  + **Ancora normalization** in Spanish
+  + **Ancora normalization**  and **multiword** detection in Spanish
   + **paragraph tokenization** to provide paragraph information
-   
+
+### Features
+
 By default, the tokenizer does PTB3 normalization style except brackets and forward 
 slashes (value "default" of ixa-pipe-tok -normalization parameter as described below). 
 To change these options, the ixa-pipe-tok CLI currently provides four options, accessible via the 
@@ -91,7 +107,17 @@ they appear in the IxaPipeLexer specification):
   + unicodeLdots: Normalize dot and optional space sequences into the Unicode 
     ellipsis character (U+2026). Dots order of application is ptb3Ldots -> UnicodeLdots.
 
-## USING ixa-pipe-tok
+### Resources
+
+**ixa-pipe-tok resources**: 
+
+  + The [tok-resources.tgz](http://ixa2.si.ehu.es/ixa-pipes/models/tok-resources.tgz)
+  package, which contains **every resource** required to run the **multiword
+  detection** functionality. It is **required** to download and untar this
+  package in the **src/main/resources/** directory to use the **--multiword**
+  detection option.
+
+## CLI-USAGE
 
 ixa-pipe-tok provides 2 basic functionalities:
 
@@ -107,7 +133,7 @@ parameter:
 java -jar target/ixa-pipe-tok-$version.jar (tok|eval) -help
 ````
 
-### Tokenizing with ixa-pipe-tok
+### Tokenizing
 
 If you are in hurry, just execute: 
 
@@ -135,6 +161,9 @@ There are several options to tokenize with ixa-pipe-tok:
   + **notok**: take already tokenized text as input and create a KAFDocument 
   + **inputkaf**: take a NAF document as input instead of plain text file.
   + **kafversion**: specify the NAF version as parameter
+  + **multiwords**: switches on the multiwords detection module. **Download the
+  and unpack the tok-resources.tgz** file in src/main/resources directory
+  before compiling.
 
 **Example**: 
 
@@ -158,16 +187,26 @@ The eval subcommand provides the following options:
 java -jar target/ixa.pipe.tok-$version.jar eval --goldSet gold.tok
 ````
 
-## JAVADOC
+## API
 
-It is possible to generate the javadoc of the module by executing:
+The easiest way to use ixa-pipe-tok programatically is via Apache Maven. Add
+this dependency to your pom.xml:
 
 ````shell
-cd ixa-pipe-tok/
-mvn javadoc:jar
+<dependency>
+  <groupId>es.ehu.si.ixa</grouId>
+  <artifactId>ixa.pipe.tok</artifactId>
+  <version>1.6.0</version>
+</dependency>
 ````
 
-Which will create a jar file core/target/ixa-pipe-tok-$version-javadoc.jar
+## JAVADOC
+
+The javadoc of the module is located here:
+
+````shell
+ixa-pipe-tok/target/ixa-pipe-tok-$version-javadoc.jar
+````
 
 ## Module contents
 
