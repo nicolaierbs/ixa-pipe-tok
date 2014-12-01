@@ -15,7 +15,7 @@ and install this repository instead of using the releases provided in
 [http://ixa2.si.ehu.es/ixa-pipes], please scroll down to the end of the document for
 the [installation instructions](#installation).
 
-**NOTICE!!**: ixa-pipe-nerc is now in [Maven Central](http://search.maven.org/)
+**NOTICE!!**: ixa-pipe-tok is now in [Maven Central](http://search.maven.org/)
 for easy access to its API.
 
 ## TABLE OF CONTENTS

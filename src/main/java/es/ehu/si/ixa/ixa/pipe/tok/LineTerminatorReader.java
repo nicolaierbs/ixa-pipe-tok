@@ -3,27 +3,37 @@ package es.ehu.si.ixa.ixa.pipe.tok;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ * BufferedReader with readLine function that also outputs
+ * \r and \n newline characters.
+ *
+ * @version 2014-12-01
+ *
+ */
 public class LineTerminatorReader {
   private Reader delegate;
-  private StringBuilder readBuffer;
+  private StringBuilder sb;
   private int nextCh = SOL;
   private int readChars;
 
   private static final int SOL = -10; // Start Of Line
 
+  /**
+   * Construct a LineTerminatorReader from a Reader.
+   * @param delegate the Reader
+   */
   public LineTerminatorReader(Reader delegate) {
     this.delegate = delegate;
-    readBuffer = new StringBuilder();
+    sb = new StringBuilder();
   }
 
   /**
-   * Reads all chars of a line, returning also line terminators
-   * 
-   * @return The line text
+   * Reads all chars of a line, returning also line ending characters.
+   * @return the line text
    */
   public String readLine() throws IOException {
     String res = null;
-    readBuffer.setLength(0);
+    sb.setLength(0);
     int ch = (char) -10;
 
     if (nextCh == -1) {
@@ -34,7 +44,7 @@ public class LineTerminatorReader {
       boolean eof = false;
       while (!newLine && !eof) {
         if (nextCh != SOL) {
-          readBuffer.append((char) nextCh);
+          sb.append((char) nextCh);
         }
         nextCh = SOL;
         ch = delegate.read();
@@ -44,16 +54,16 @@ public class LineTerminatorReader {
           nextCh = delegate.read();
           if (nextCh == '\n') {
             // double line found
-            readBuffer.append("\r\n");
+            sb.append("\r\n");
             newLine = true;
             nextCh = SOL;
           } else {
-            readBuffer.append("\r");
+            sb.append("\r");
             newLine = true;
           }
           break;
         case '\n':
-          readBuffer.append("\n");
+          sb.append("\n");
           newLine = true;
           break;
         case -1:
@@ -62,10 +72,10 @@ public class LineTerminatorReader {
           break;
         default:
           if (ch != -1)
-            readBuffer.append((char) ch);
+            sb.append((char) ch);
         }
       }
-      res = readBuffer.toString();
+      res = sb.toString();
       readChars += res.length();
     }
     return res;
