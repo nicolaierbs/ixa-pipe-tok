@@ -83,11 +83,10 @@ public class MultiWordMatcher {
    */
   public final InputStream getMultiWordDict(final String lang) {
     InputStream dict = null;
-    if (lang.equalsIgnoreCase("en")) {
+    if (lang.equalsIgnoreCase("gl")) {
       dict = getClass().getResourceAsStream(
-          "/es/freeling-dicts/es-locutions.txt");
+          "/gl/gl-locutions.txt");
     }
-
     if (lang.equalsIgnoreCase("es")) {
       dict = getClass().getResourceAsStream(
           "/es/freeling-dicts/es-locutions.txt");
