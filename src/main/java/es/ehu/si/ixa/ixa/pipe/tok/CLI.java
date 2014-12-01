@@ -28,7 +28,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.Properties;
-import java.util.regex.Matcher;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
@@ -180,12 +179,12 @@ public class CLI {
     else {
       kaf = new KAFDocument(lang, kafVersion);
       if (multiwords) {
-        BufferedReader mwReader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
         StringBuilder sb = new StringBuilder();
+        LineTerminatorReader mwreader = new LineTerminatorReader(new InputStreamReader(System.in, "UTF-8"));
         MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
         String line;
-        while ((line = mwReader.readLine()) != null) {
-         sb.append(multiWordMatcher.getMultiWords(line)).append("\n");
+        while ((line = mwreader.readLine()) != null) {
+         sb.append(multiWordMatcher.getMultiWords(line));
         }
         StringReader stringReader = new StringReader(sb.toString());
         breader = new BufferedReader(stringReader);
@@ -195,7 +194,6 @@ public class CLI {
     }
     // tokenize in kaf
     if (parsedArguments.getBoolean("nokaf")) {
-
       KAFDocument.LinguisticProcessor newLp = kaf.addLinguisticProcessor("text", "ixa-pipe-tok-" + lang, version + "-" + commit);
       newLp.setBeginTimestamp();
         Annotate annotator = new Annotate(breader, properties);

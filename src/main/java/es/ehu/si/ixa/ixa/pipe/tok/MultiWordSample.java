@@ -11,6 +11,8 @@ import opennlp.tools.util.Span;
 
 /**
  * Class for holding multiwords for a single unit of text.
+ * @author ragerri
+ * @version 2014-11-30
  */
 public class MultiWordSample {
 

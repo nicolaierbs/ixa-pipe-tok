@@ -28,7 +28,11 @@ public class MultiWordMatcher {
   private static final Pattern linePattern = Pattern.compile("_");
   private static Map<String, String> dictionary;
   
-  //TODO load the dictionary by language
+  /**
+   * Construct a multiword matcher with a dictionary for a given language.
+   * @param props
+   * @throws IOException
+   */
   public MultiWordMatcher(Properties props) throws IOException {
     if (dictionary == null) {
       loadDictionary(props);
