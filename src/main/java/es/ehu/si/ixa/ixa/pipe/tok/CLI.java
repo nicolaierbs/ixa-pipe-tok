@@ -59,7 +59,7 @@ import es.ehu.si.ixa.ixa.pipe.tok.eval.TokenizerEvaluator;
  * it.
  * <li>inputkaf: take a KAF/NAF Document as input instead of plain text file.
  * <li>kafversion: specify the KAF version as parameter.
- * <li>clean: specify to remove sentences that are not 90% lowercased.
+ * <li>multiwords: specify to detect multiword expressions.
  * <li>eval: input reference corpus to evaluate a tokenizer.
  * </ol>
  * 
@@ -166,9 +166,15 @@ public class CLI {
       String text = kaf.getRawText();
       StringReader stringReader;
       if (multiwords) {
+        StringBuilder sb = new StringBuilder();
+        StringReader kafStringReader = new StringReader(text);
+        LineTerminatorReader mwReader = new LineTerminatorReader(kafStringReader);
         MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
-        String mwText = multiWordMatcher.getMultiWords(text);
-        stringReader = new StringReader(mwText);
+        String line;
+        while ((line = mwReader.readLine()) != null) {
+          sb.append(multiWordMatcher.getMultiWords(line));
+        }
+        stringReader = new StringReader(sb.toString());
       } else {
         stringReader = new StringReader(text);
       }
