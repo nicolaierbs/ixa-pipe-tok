@@ -1,4 +1,4 @@
-package es.ehu.si.ixa.pipe.tok;
+package es.ehu.si.ixa.ixa.pipe.tok;
 
 /* --------------------------Usercode Section------------------------ */
 
@@ -43,8 +43,9 @@ import java.util.Properties;
     this(breader);
     this.tokenFactory = tokenFactory;
     String options = properties.getProperty("paragraphs");
-    if (options == null) {
-      options = "";
+    if (options.equalsIgnoreCase("no") {
+      tokenizeNLs = false;
+      tokenizeParagraphs = false;
     }
     else if (options.equalsIgnoreCase("yes")) {
         tokenizeNLs = true;
@@ -110,8 +111,9 @@ TEXT = [^ \t\u00A0\u1680\u180E\u2002-\u200B\u202F\u205F\u2060\u3000\r\n\u0085\u2
 
 {NEWLINE}      				{   if (tokenizeNLs) {
                 			        return makeToken(NEWLINE_TOKEN); 
+                                            }
                                         }
-}
+
 {OTHER_NEWLINE} 			{   if (tokenizeNLs) {
                         		        return makeToken(NEWLINE_TOKEN); 
                                             }
