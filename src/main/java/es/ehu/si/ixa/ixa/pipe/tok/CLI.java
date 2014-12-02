@@ -59,7 +59,6 @@ import es.ehu.si.ixa.ixa.pipe.tok.eval.TokenizerEvaluator;
  * it.
  * <li>inputkaf: take a KAF/NAF Document as input instead of plain text file.
  * <li>kafversion: specify the KAF version as parameter.
- * <li>multiwords: specify to detect multiword expressions.
  * <li>eval: input reference corpus to evaluate a tokenizer.
  * </ol>
  * 
@@ -149,7 +148,6 @@ public class CLI {
     String kafVersion = parsedArguments.getString("kafversion");
     Boolean inputKafRaw = parsedArguments.getBoolean("inputkaf");
     Boolean noTok = parsedArguments.getBoolean("notok");
-    Boolean multiwords = parsedArguments.getBoolean("multiwords");
     Properties properties = setAnnotateProperties(lang, tokenizerType, normalize, paras);
     BufferedReader breader = null;
     BufferedWriter bwriter = null;
@@ -165,38 +163,14 @@ public class CLI {
       kaf = KAFDocument.createFromStream(kafReader);
       String text = kaf.getRawText();
       StringReader stringReader;
-      if (multiwords) {
-        StringBuilder sb = new StringBuilder();
-        StringReader kafStringReader = new StringReader(text);
-        LineTerminatorReader mwReader = new LineTerminatorReader(kafStringReader);
-        MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
-        String line;
-        while ((line = mwReader.readLine()) != null) {
-          sb.append(multiWordMatcher.getMultiWords(line));
-        }
-        stringReader = new StringReader(sb.toString());
-      } else {
-        stringReader = new StringReader(text);
-      }
+      stringReader = new StringReader(text);
       breader = new BufferedReader(stringReader);
     }
     // read plain text from standard input and create a new
     // KAFDocument
     else {
       kaf = new KAFDocument(lang, kafVersion);
-      if (multiwords) {
-        StringBuilder sb = new StringBuilder();
-        LineTerminatorReader mwreader = new LineTerminatorReader(new InputStreamReader(System.in, "UTF-8"));
-        MultiWordMatcher multiWordMatcher = new MultiWordMatcher(properties);
-        String line;
-        while ((line = mwreader.readLine()) != null) {
-         sb.append(multiWordMatcher.getMultiWords(line));
-        }
-        StringReader stringReader = new StringReader(sb.toString());
-        breader = new BufferedReader(stringReader);
-      } else {
-        breader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
-      }
+      breader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
     }
     // tokenize in kaf
     if (parsedArguments.getBoolean("nokaf")) {
@@ -285,9 +259,6 @@ public class CLI {
         .action(Arguments.storeTrue())
         .help(
             "Use this option if input is a KAF/NAF document with <raw> layer.\n");
-    annotateParser.addArgument("-mw","--multiwords")
-        .action(Arguments.storeTrue())
-        .help("Use this option to activate multiwords detection.\n");
     annotateParser.addArgument("--notok")
         .action(Arguments.storeTrue())
         .help("Build a KAF document from an already tokenized sentence per line file.\n");
