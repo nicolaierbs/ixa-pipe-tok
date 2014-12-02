@@ -22,7 +22,6 @@ for easy access to its API.
 
 1. [Overview of ixa-pipe-tok](#overview)
   + [Available features](#features)
-  + [Distributed resources](#resources)
 2. [Usage of ixa-pipe-tok](#cli-usage)
   + [Tokenization](#tokenizing)
   + [Evaluation](#evaluation)
@@ -58,7 +57,7 @@ Specifically, apart from English Penn Treebank-compliant tokenization,
     rules for splitting apostrophes. 
   + **multilingual support for non-breaking prefixes**, adding language-specific 
     non-breaking exceptions for Dutch, German, French, Galician, Italian and Spanish.
-  + **Ancora normalization**  and **multiword** detection in Spanish
+  + **Ancora normalization**
   + **paragraph tokenization** to provide paragraph information
 
 ### Features
@@ -107,16 +106,6 @@ they appear in the IxaPipeLexer specification):
   + unicodeLdots: Normalize dot and optional space sequences into the Unicode 
     ellipsis character (U+2026). Dots order of application is ptb3Ldots -> UnicodeLdots.
 
-### Resources
-
-**ixa-pipe-tok resources**: 
-
-  + The [tok-resources.tgz](http://ixa2.si.ehu.es/ixa-pipes/models/tok-resources.tgz)
-  package, which contains **every resource** required to run the **multiword
-  detection** functionality. It is **required** to download and untar this
-  package in the **src/main/resources/** directory to use the **--multiword**
-  detection option.
-
 ## CLI-USAGE
 
 ixa-pipe-tok provides 2 basic functionalities:
@@ -161,9 +150,6 @@ There are several options to tokenize with ixa-pipe-tok:
   + **notok**: take already tokenized text as input and create a KAFDocument 
   + **inputkaf**: take a NAF document as input instead of plain text file.
   + **kafversion**: specify the NAF version as parameter
-  + **multiwords**: switches on the multiwords detection module. **Download the
-  and unpack the tok-resources.tgz** file in src/main/resources directory
-  before compiling.
 
 **Example**: 
 
