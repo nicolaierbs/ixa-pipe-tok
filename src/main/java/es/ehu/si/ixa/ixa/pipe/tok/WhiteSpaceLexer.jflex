@@ -43,7 +43,7 @@ import java.util.Properties;
     this(breader);
     this.tokenFactory = tokenFactory;
     String options = properties.getProperty("paragraphs");
-    if (options.equalsIgnoreCase("no") {
+    if (options.equalsIgnoreCase("no")) {
       tokenizeNLs = false;
       tokenizeParagraphs = false;
     }
