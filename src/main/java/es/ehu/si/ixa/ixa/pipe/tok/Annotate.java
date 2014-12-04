@@ -111,9 +111,9 @@ public class Annotate {
             ++noSents;
           }
         } else {
-          WF wf = kaf.newWF(token.value(), token.startOffset());
+          WF wf = kaf.newWF(token.value(), token.startOffset(),noSents);
           wf.setPara(noParas);
-          wf.setSent(noSents);
+          //wf.setSent(noSents);          
         }
       }
     }
