@@ -508,7 +508,8 @@ ABBREV_MONTH = {ABBREV_MONTH_DE}|{ABBREV_MONTH_EN}|{ABBREV_MONTH_ES}|{ABBREV_MON
 
 
 ABBREV_DAYS_DE = So|Mo|Di|Mi|Do|Fr|Sa
-ABBREV_DAYS_EN = Mon|Tue|Tues|Wed|Thu|Thurs|Fri|Sat|Sun
+//ABBREV_DAYS_EN = Mon|Tue|Tues|Wed|Thu|Thurs|Fri|Sat|Sun
+ABBREV_DAYS_EN = Mon|Tue|Tues|Wed|Thu|Thurs|Fri|Sat
 ABBREV_DAYS_ES = Lun|Mar|Miér|Jue|Vier|Sáb|Dom
 ABBREV_DAYS_FR = lun|mer|jeu|ven|sam|dim
 ABBREV_DAYS_GL = Lun|Ma|Mér|Xov|Ven|Sáb|Dom
