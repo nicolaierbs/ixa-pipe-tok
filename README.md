@@ -180,9 +180,9 @@ this dependency to your pom.xml:
 
 ````shell
 <dependency>
-  <groupId>es.ehu.si.ixa</grouId>
-  <artifactId>ixa.pipe.tok</artifactId>
-  <version>1.6.0</version>
+    <groupId>es.ehu.si.ixa</groupId>
+    <artifactId>ixa-pipe-tok</artifactId>
+    <version>1.6.6</version>
 </dependency>
 ````
 
