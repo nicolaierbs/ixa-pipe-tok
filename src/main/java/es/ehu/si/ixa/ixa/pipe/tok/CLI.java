@@ -50,7 +50,7 @@ import es.ehu.si.ixa.ixa.pipe.tok.eval.TokenizerEvaluator;
  * <ol>
  * <li>lang: choose language to create the lang attribute in KAF header.
  * <li>tokenizer: choose between default tokenizer and WhiteSpace tokenizer.
- * <li>normalize: choose normalization method (see @link IxaPipeTokenizer).
+ * <li>normalize: choose normalization method (see @link AbstractTokenizer).
  * <li>paragraphs: choose to print paragraph symbols.
  * <li>nokaf: do not output KAF/NAF document.
  * <li>outputFormat: if --nokaf is used, choose between oneline or conll format
@@ -221,15 +221,14 @@ public class CLI {
         .required(false)
         .setDefault("ixa")
         .help(
-            "Choose between using the IXA pipe tokenizer (default) or a WhiteSpace tokenizer.\n");
+            "Choose between using one of the tokenizer (default) or a WhiteSpace tokenizer.\n");
     annotateParser
         .addArgument("-n", "--normalize")
-        .choices("ancora", "default", "ptb3", "sptb3")
+        .choices("alpino", "ancora", "ctag", "default", "ptb3", "sptb3", "tiger", "tutpenn")
         .required(false)
         .setDefault("default")
         .help(
-            "Set normalization method; (s)ptb3 and ancora comply with "
-                + "Penn Treebank and Ancora normalizations respectively; the default option does not escape "
+            "Set normalization method according to corpus; the default option does not escape "
                 + "brackets or forward slashes. See README for more details.\n");
     annotateParser
         .addArgument("-p", "--paragraphs")

@@ -22,18 +22,19 @@ import java.util.List;
 /**
  * Tokenizers break up text into individual Objects. The decisions to specify
  * this interface are pragmatically based on the main Tokenizer implementation
- * provided by ixa-pipe-tok, namely, the @link IxaPipeTokenizer. That
+ * provided by ixa-pipe-tok, namely, the @link EnglishTokenizer. That
  * implementation uses JFlex to create a scanner which recognizes certain
- * patterns in running text and creates @link Token objects. The default API of {@link
- * English} provides a <code>yylex()</code> method that behaves roughly like a
+ * patterns in running text and creates @link Token objects. The default API of 
+ * {@link es.ehu.si.ixa.ixa.pipe.tok.jflex.English} provides a <code>yylex()</code> method that behaves roughly like a
  * <code>next()</code> Iterator function.
  * 
  * Thus, Tokenizer implementations will probably implement and/or override the
- * <code>next()</code> function. For example @link IxaPipeTokenizer provides
+ * <code>next()</code> function. For example @link EnglishTokenizer provides
  * an implementation of
- * <code>next()<code> that uses internally the <code>yylex()</code> function of @link
- * IxaPipeLexer to obtain the Token objects. Other implementations, e.g., a 
- * @link WhiteSpaceTokenizer, are also expected to implement the <code>next()</code> function.
+ * <code>next()<code> that uses internally the <code>yylex()</code> function of 
+ * {@link es.ehu.si.ixa.ixa.pipe.tok.jflex.English} to obtain the Token objects. 
+ * Other implementations, e.g., a @link WhiteSpaceTokenizer, are also expected 
+ * to implement the <code>next()</code> function.
  * 
  * The same reason (JFlex API) dictates that implementations of this interface
  * are expected to have a constructor takes a Reader as argument.

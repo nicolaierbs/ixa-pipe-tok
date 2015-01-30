@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Rodrigo Agerri
+ * Copyright 2015 Rodrigo Agerri
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -83,9 +83,33 @@ public class Annotate {
     if (tokenizerType.equalsIgnoreCase("white")) {
       tokenizer = new WhiteSpaceTokenizer<Token>(breader, tokenFactory, properties);
     } else {
-      tokenizer = new EnglishTokenizer<Token>(breader, tokenFactory, properties);
+      loadTokenizer(breader, properties);
     }
     segmenter = new Segmenter();
+  }
+  
+  /**
+   * Loads the appropriate tokenizer by language. It defaults to English.
+   * @param breader the buffered reader
+   * @param properties the properties
+   */
+  private void loadTokenizer(BufferedReader breader, Properties properties) {
+    String lang = properties.getProperty("language");
+    if (lang.equalsIgnoreCase("de")) {
+      tokenizer = new TigerTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("en")) {
+      tokenizer = new EnglishTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("es")) {
+      tokenizer = new AncoraTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("fr")) {
+      tokenizer = new FrenchTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("gl")) {
+      tokenizer = new CtagTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("it")) {
+      tokenizer = new TutpennTokenizer<Token>(breader, tokenFactory, properties);
+    } else if (lang.equalsIgnoreCase("nl")) {
+      tokenizer = new AlpinoTokenizer<Token>(breader, tokenFactory, properties);
+    }
   }
 
   /**

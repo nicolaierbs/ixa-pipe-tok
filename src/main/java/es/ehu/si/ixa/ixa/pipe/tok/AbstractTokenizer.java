@@ -27,10 +27,10 @@ import java.util.NoSuchElementException;
    * method implementations specify actual behaviour of the functions provided 
    * by this Tokenizer, which makes it easier to actually implement new Tokenizers;
    * 
-   * ixa-pipe-tok provides an example in the @link JFlexLexerTokenizer where an 
+   * ixa-pipe-tok provides an example in the @link AncoraTokenizer where an 
    * implementation of <code>getToken()</code> makes the <code>next()</code> 
    * function behave like the <code>yylex()</code> function provided by
-   *  @link JFlexLexer. It also specifies the behaviour of the other functions of 
+   *  @link es.ehu.si.ixa.ixa.pipe.tok.jflex.Ancora. It also specifies the behaviour of the other functions of 
    * this Tokenizer. 
    * 
    * Null tokens not allowed, because null is used in the protected nextToken field to state that no more

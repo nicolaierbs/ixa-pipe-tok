@@ -442,6 +442,7 @@ ASIANSMILEY = [\^x=~<>]\.\[\^x=~<>]|[\-\^x=~<>']_[\-\^x=~<>']|\([\-\^x=~<>'][_.]
 
 
 /*---- NUMBERS and DATES ----*/
+ORDINAL = 1er|1re|[02-9]e|[:digit:][:digit:]+e
 DIGIT = [:digit:]|[\u07C0-\u07C9]
 DATE = {DIGIT}{1,2}[\-\/]{DIGIT}{1,2}[\-\/]{DIGIT}{2,4}
 NUM = {DIGIT}+|{DIGIT}*([.:,\u00AD\u066B\u066C]{DIGIT}+)+
@@ -545,6 +546,8 @@ PHONE = (\([0-9]{2,3}\)[ \u00A0]?|(\+\+?)?([0-9]{2,4}[\- \u00A0])?[0-9]{2,4}[\- 
 /* ------------------------Lexical Rules Section---------------------- */
 
 %%
+
+{ORDINAL}/{SPACE} 			{ return makeToken(); }
 
 /* ptb3 normalized ampersand */
 {AMP}                       { return normalizeAmpNext(); }

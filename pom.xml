@@ -4,7 +4,7 @@
 	<groupId>es.ehu.si.ixa</groupId>
 	<artifactId>ixa-pipe-tok</artifactId>
 	<packaging>jar</packaging>
-	<version>1.6.6</version>
+	<version>1.7.0</version>
 	<name>ixa-pipe-tok</name>
 	<description>The tokenizer of ixa pipes (ixa2.si.ehu.es/ixa-pipes).</description>
 	<licenses>
@@ -17,9 +17,9 @@
 		<developer>
 			<id>ragerri</id>
 			<name>Rodrigo Agerri</name>
-			<email>rodrigo.agerri@ehu.es</email>
+			<email>rodrigo.agerri@ehu.eus</email>
 			<organization>IXA NLP Group</organization>
-			<organizationUrl>http://ixa.si.ehu.es</organizationUrl>
+			<organizationUrl>http://ixa.eus</organizationUrl>
 		</developer>
 	</developers>
 	<properties>
