@@ -31,6 +31,7 @@ import java.util.Properties;
 import com.google.common.io.CharStreams;
 
 import es.ehu.si.ixa.ixa.pipe.tok.eval.TokenizerEvaluator;
+import es.ehu.si.ixa.ixa.pipe.tok.jflex.English;
 
 /**
  * This class provides the annotation functions to output the tokenized text
@@ -82,7 +83,7 @@ public class Annotate {
     if (tokenizerType.equalsIgnoreCase("white")) {
       tokenizer = new WhiteSpaceTokenizer<Token>(breader, tokenFactory, properties);
     } else {
-      tokenizer = new IxaPipeTokenizer<Token>(breader, tokenFactory, properties);
+      tokenizer = new EnglishTokenizer<Token>(breader, tokenFactory, properties);
     }
     segmenter = new Segmenter();
   }
@@ -103,7 +104,7 @@ public class Annotate {
     for (List<Token> sentence : sentences) {
       noSents = noSents + 1;
       for (Token token : sentence) {
-        if (token.value().equals(IxaPipeLexer.PARAGRAPH_TOKEN)) {
+        if (token.value().equals(English.PARAGRAPH_TOKEN)) {
           ++noParas;
           //TODO sentences without end markers;
           //crap rule
@@ -180,7 +181,7 @@ public class Annotate {
     StringBuilder sb = new StringBuilder();
     for (List<Token> sentence : sentences) {
       for (Token token : sentence) {
-        if (token.value().equals(IxaPipeLexer.PARAGRAPH_TOKEN)) {
+        if (token.value().equals(English.PARAGRAPH_TOKEN)) {
           sb.append(token.value()).append("\n");
         }
         else {
@@ -228,9 +229,9 @@ public class Annotate {
   private static List<Integer> getSpuriousParas(List<Token> tokens) {
     List<Integer> spuriousTokens = new ArrayList<Integer>();
     for (int i = 1; i < (tokens.size() -1); ++i) {
-      if (tokens.get(i).value().equals(IxaPipeLexer.PARAGRAPH_TOKEN) && 
+      if (tokens.get(i).value().equals(English.PARAGRAPH_TOKEN) && 
           ( tokens.get(i+1).value().matches("[a-z]+") || 
-              tokens.get(i+1).value().equals(IxaPipeLexer.PARAGRAPH_TOKEN))) {
+              tokens.get(i+1).value().equals(English.PARAGRAPH_TOKEN))) {
         spuriousTokens.add(i);
       }
     }
@@ -250,7 +251,7 @@ public class Annotate {
       noSents = noSents + 1;
       String[] tokens = sentence.split(" ");
       for (String token : tokens) {
-        if (token.equals(IxaPipeLexer.PARAGRAPH_TOKEN)) {
+        if (token.equals(English.PARAGRAPH_TOKEN)) {
           ++noParas;
           //TODO sentences without end markers;
           //crap rule

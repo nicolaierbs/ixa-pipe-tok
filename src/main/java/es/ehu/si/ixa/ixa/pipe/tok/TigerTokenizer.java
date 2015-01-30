@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Rodrigo Agerri
+ * Copyright 2015 Rodrigo Agerri
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -20,35 +20,34 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import es.ehu.si.ixa.ixa.pipe.tok.jflex.Tiger;
+
 
 /**
- *  IxaPipeTokenizer is based on the {@link IxaPipeLexer} class. 
+ *  TigerTokenizer is based on the {@link Tiger} class. 
  *  This Tokenizer overrides {@link AbstractTokenizer} getToken() method 
- *  by using the {@link IxaPipeLexer} yylex() method.  
+ *  by using the {@link Tiger} yylex() method.  
  *  
  * This Tokenizer tokenizes running text but also provides normalization functions 
  * to comply with annotation in corpora such as Penn Treebank for English and 
- * Ancora Corpus for Spanish. Most of the normalization rules have been adapted from 
+ * Tiger Corpus for German. Most of the normalization rules have been adapted from 
  * the @link PTBLexer class of Stanford CoreNLP version 3.2.0, but with many changes for 
- * other requirements, such as those of the Ancora corpus. 
- *  
+ * other requirements, such as those of the Tiger corpus.
+ * 
  * Specifically, apart from English Penn Treebank-compliant tokenization, 
  * this Tokenizer provides:
  *  
  * <ol>
- *  <li> multilingual treatment of apostrophes for Catalan, French and Italian styles 
- *       (l' aquila, c' est, etc.) possibly applying to other languages with the same 
- *       rules for splitting apostrophes. 
  *  <li> multilingual support for non-breaking prefixes, adding language-specific 
- *       acronyms and person titles, etc., for Dutch, German, French, Italian and Spanish. 
- *  <li> normalization for Ancora corpus in Spanish.
+ *       acronyms and person titles for German. 
+ *  <li> normalization for Tiger corpus in German.
  *  <li> paragraph tokenization to provide paragraph information.
  *  </ol> 
  *      
- * By default, the tokenizer does PTB3 normalization style except brackets and forward 
- * slashes (value "default" of ixa-pipe-tok -normalization parameter as described below). 
+ * By default, the tokenizer does Tiger normalization style (value "default" of 
+ * ixa-pipe-tok -normalization parameter as described below). 
  * To change these options, the ixa-pipe-tok CLI currently provides four options, accessible via the 
- * "-normalization" parameter. 
+ * "--normalization" parameter. 
  * 
  * <ol>
  *   <li>sptb3: Strict Penn Treebank normalization. Performs all normalizations listed below 
@@ -61,13 +60,12 @@ import java.util.Properties;
  *       <li> This option returns fractions such as "2 3/4" as a Token object, 
  *          but sptb3 separate them into two Token objects. 
  *     </ol>
- *   <li> default: ptb3 minus (all types of) brackets and escapeForwardSlash normalizations.
- *   <li> ancora: Ancora corpus based normalization. Like default, except that every 
- *        quote is normalized into ascii quotes. 
+ *   <li> default: Tiger minus (all types of) brackets and escapeForwardSlash normalizations.
+ *   <li> Tiger: Tiger corpus based normalization. 
  * </ol> 
  * 
  * The normalization performed by the four options above are (in the order in which
- * they appear in the @link JFlexLexer specification):
+ * they appear in the @link Tiger specification):
  * <ol> 
  * <li>tokenizeParagraphs: creates Paragraph Tokens when more than newlines are found.
  *       Paragraphs are denoted by "*<P>*"
@@ -95,32 +93,32 @@ import java.util.Properties;
  * 
  * For more CLI options, please check {@link CLI} javadoc and README file. 
  * @author ragerri
- * @version 2013-11-27
+ * @version 2015-01-30
  * 
  */
  
-public class IxaPipeTokenizer<T> extends AbstractTokenizer<T> {
+public class TigerTokenizer<T> extends AbstractTokenizer<T> {
 
   
-  private IxaPipeLexer jlexer;
+  private Tiger jlexer;
   
   /**
-   * Construct a new Tokenizer which uses the @link JFlexLexer specification
+   * Construct a new Tokenizer which uses the @link Tiger specification
    * 
    * 
    * @param breader Reader
    * @param tokenFactory The TokenFactory that will be invoked to convert
-   *        each string extracted by the @link JFlexLexer  into a @Token object
+   *        each string extracted by the @link Tiger into a @Token object
    * @param properties the properties to run the tokenizer
    * 
    */
-  public IxaPipeTokenizer(BufferedReader breader, TokenFactory tokenFactory, Properties properties) {
-    jlexer = new IxaPipeLexer(breader, tokenFactory, properties);
+  public TigerTokenizer(BufferedReader breader, TokenFactory tokenFactory, Properties properties) {
+    jlexer = new Tiger(breader, tokenFactory, properties);
   }
 
   /**
    * It obtains the next token. This functions performs the actual tokenization 
-   * by calling the @link JFlexLexer yylex() function
+   * by calling the @link Tiger yylex() function
    *
    * @return the next token or null if none exists.
    */

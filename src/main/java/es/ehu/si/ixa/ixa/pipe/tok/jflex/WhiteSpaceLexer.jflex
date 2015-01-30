@@ -1,4 +1,4 @@
-package es.ehu.si.ixa.ixa.pipe.tok;
+package es.ehu.si.ixa.ixa.pipe.tok.jflex;
 
 /* --------------------------Usercode Section------------------------ */
 
@@ -7,11 +7,14 @@ import java.io.Reader;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.Properties;
+import es.ehu.si.ixa.ixa.pipe.tok.Token;
+import es.ehu.si.ixa.ixa.pipe.tok.TokenFactory;
 	
 /* -----------------Options and Declarations Section----------------- */
 
 %%
 
+%public
 %class WhiteSpaceLexer
 %unicode
 %type Token

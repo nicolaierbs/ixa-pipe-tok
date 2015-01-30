@@ -25,7 +25,7 @@ import java.util.List;
  * provided by ixa-pipe-tok, namely, the @link IxaPipeTokenizer. That
  * implementation uses JFlex to create a scanner which recognizes certain
  * patterns in running text and creates @link Token objects. The default API of {@link
- * IxaPipeLexer} provides a <code>yylex()</code> method that behaves roughly like a
+ * English} provides a <code>yylex()</code> method that behaves roughly like a
  * <code>next()</code> Iterator function.
  * 
  * Thus, Tokenizer implementations will probably implement and/or override the

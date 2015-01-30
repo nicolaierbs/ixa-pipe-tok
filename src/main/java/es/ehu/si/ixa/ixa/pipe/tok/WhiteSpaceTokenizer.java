@@ -20,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import es.ehu.si.ixa.ixa.pipe.tok.jflex.WhiteSpaceLexer;
+
 
 /**
  *  WhiteSpaceTokenizer is based on the {@link WhiteSpaceLexer} class. 

@@ -16,9 +16,10 @@
 
 package es.ehu.si.ixa.ixa.pipe.tok;
 
+
 /**
  * This class provides the functionality to create {@link Token} objects. E.g., the 
- * {@link IxaPipeTokenizer} uses the createToken function of this class to create
+ * {@link EnglishTokenizer} uses the createToken function of this class to create
  * every {@link Token}
  * 
  * @author ragerri
