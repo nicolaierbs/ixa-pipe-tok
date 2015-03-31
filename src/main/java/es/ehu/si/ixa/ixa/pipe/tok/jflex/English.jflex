@@ -901,7 +901,7 @@ gonna|gotta|lemme|gimme|wanna   { yypushback(2) ; return makeToken(); }
 {FAKEDUCKFEET}  			{   return makeToken(); }
 {MISC_SYMBOL}    			{   return makeToken(); }
 
-PARAGRAPH}                             {   if (tokenizeParagraphs) {
+{PARAGRAPH}                             {   if (tokenizeParagraphs) {
                                                 return makeToken(PARAGRAPH_TOKEN);
                                             }
                                         }
