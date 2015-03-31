@@ -4,7 +4,7 @@
   <groupId>es.ehu.si.ixa</groupId>
   <artifactId>ixa-pipe-tok</artifactId>
   <name>ixa-pipe-tok</name>
-  <version>1.7.1</version>
+  <version>1.7.2</version>
   <description>The tokenizer of ixa pipes (ixa2.si.ehu.es/ixa-pipes).</description>
   <url>http://ixa2.si.ehu.es/ixa-pipes</url>
   <prerequisites>
@@ -21,8 +21,8 @@
   </developers>
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>GPL License v.2</name>
+      <url>https://www.gnu.org/copyleft/gpl.html</url>
     </license>
   </licenses>
   <scm>
